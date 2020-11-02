@@ -1,53 +1,43 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import CardList from "../components/CardList";
 import Header from "../components/Header";
 import Scroll from "../components/Scroll";
 import ErrorBoundry from "../components/ErrorBoundry";
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      robots: [],
-      searchField: "",
-    };
-  }
+function App() {
+  const [robots, setRobots] = useState([]);
+  const [searchfield, setSearchfield] = useState("");
 
-  componentDidMount() {
+  useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/users")
-      .then((res) => {
-        return res.json();
-      })
+      .then((res) => res.json())
       .then((users) => {
-        this.setState({ robots: users });
+        setRobots(users);
       });
-  }
+    console.log(robots, searchfield);
+  }, []);
 
-  onSearchChange = (event) => {
-    this.setState({ searchField: event.target.value });
+  const onSearchChange = (event) => {
+    setSearchfield(event.target.value);
   };
 
-  render() {
-    const { robots, searchField } = this.state;
-    const filteredRobots = robots.filter((robot) => {
-      return robot.name.toLowerCase().includes(searchField.toLowerCase());
-    });
-    if (!robots.length) {
-      return <h1>loading</h1>;
-    } else {
-      return (
-        <div className="app">
-          <Header searchChange={this.onSearchChange} />
-          <Scroll>
-            <ErrorBoundry>
-              <CardList robots={filteredRobots} />
-            </ErrorBoundry>
-          </Scroll>
-        </div>
-      );
-    }
-  }
+  const filteredRobots = robots.filter((robot) => {
+    return robot.name.toLowerCase().includes(searchfield.toLowerCase());
+  });
+
+  return !robots.length ? (
+    <h1>loading</h1>
+  ) : (
+    <div className="app">
+      <Header searchChange={onSearchChange} />
+      <Scroll>
+        <ErrorBoundry>
+          <CardList robots={filteredRobots} />
+        </ErrorBoundry>
+      </Scroll>
+    </div>
+  );
 }
 
 export default App;

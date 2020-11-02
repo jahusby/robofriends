@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Header.css";
 
-const Header = ({ searchField, searchChange }) => {
+const Header = ({ searchfield, searchChange }) => {
+  /* const [count, setCount] = useState(0); */
+
   return (
     <div className="header">
       <h1>Robofriends</h1>
@@ -11,6 +13,8 @@ const Header = ({ searchField, searchChange }) => {
         placeholder="search robots"
         onChange={searchChange}
       />
+      {/* <button onClick={() => setCount(count + 1)}>Click Me!</button>
+      <p>you clicked {count} times</p> */}
     </div>
   );
 };
