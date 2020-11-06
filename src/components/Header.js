@@ -1,22 +1,21 @@
-import React from "react";
+import React, { Component } from "react";
 import "./Header.css";
+import CounterButton from "./CounterButton";
 
-const Header = ({ searchfield, searchChange }) => {
-  /* const [count, setCount] = useState(0); */
+class Header extends Component {
+  /* shouldComponentUpdate(nextProps, nextState) {
+    return false;
+  } */
 
-  return (
-    <div className="header">
-      <h1>Robofriends</h1>
-      <input
-        className="header__search"
-        type="search"
-        placeholder="search robots"
-        onChange={searchChange}
-      />
-      {/* <button onClick={() => setCount(count + 1)}>Click Me!</button>
-      <p>you clicked {count} times</p> */}
-    </div>
-  );
-};
+  render() {
+    console.log("Header");
+    return (
+      <div>
+        <h1 className="f1">RoboFriends</h1>
+        <CounterButton color={"red"} />
+      </div>
+    );
+  }
+}
 
 export default Header;
